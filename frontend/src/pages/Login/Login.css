@@ -1,0 +1,128 @@
+/* Login.css */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+  }
+  
+  .login-box {
+    width: 100%;
+    max-width: 400px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .login-header {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  
+  .login-header h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1a202c;
+  }
+  
+  .login-header p {
+    font-size: 14px;
+    color: #718096;
+  }
+  
+  .login-form {
+    padding: 24px;
+  }
+  
+  .input-group {
+    margin-bottom: 16px;
+  }
+  
+  .input-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #4a5568;
+    margin-bottom: 4px;
+  }
+  
+  .input-field {
+    width: 90%;
+    padding: 8px 12px;
+    border: 1px solid #cbd5e0;
+    border-radius: 4px;
+    outline: none;
+  }
+  
+  .input-field:focus {
+    border-color: #3182ce;
+    box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.6);
+  }
+  
+  .error-text {
+    font-size: 12px;
+    color: #e53e3e;
+  }
+  
+  .error-message {
+    padding: 16px;
+    margin-bottom: 16px;
+    background-color: #fed7d7;
+    color: #c53030;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .submit-btn {
+    width: 100%;
+    padding: 10px 16px;
+    background-color: #3182ce;
+    color: white;
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-btn:hover {
+    background-color: #2b6cb0;
+  }
+  
+  .submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .spinner {
+    margin-right: 8px;
+    width: 16px;
+    height: 16px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .footer {
+    padding: 16px 24px;
+    background-color: #f7fafc;
+    border-top: 1px solid #e2e8f0;
+    text-align: center;
+    font-size: 14px;
+    color: #718096;
+  }
+  
+  .footer a {
+    color: #3182ce;
+    text-decoration: none;
+  }
+  
+  .footer a:hover {
+    text-decoration: underline;
+  }
+  
