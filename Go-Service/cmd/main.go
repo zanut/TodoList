@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+	"github.com/gin-contrib/cors"
 
 	"github.com/zanut/TodoList/Go-Service/config"
 	"github.com/zanut/TodoList/Go-Service/entities"
@@ -26,14 +27,23 @@ func main() {
 
 	todoRepo := &repositories.TodoRepository{DB: db}
 	todoUsecase := &usecases.TodoUsecase{Repo: todoRepo}
+	repo := &repositories.UserRepository{DB: db}
+	userUsecase := &usecases.UserUsecase{Repo: repo, JWTSecret: config.GetEnv("JWT_SECRET", "your_secret_key")}
+
 
 	r := gin.Default()
+	r.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{config.GetEnv("FRONTEND_URL", "http://localhost:5173")},
+		AllowMethods:     []string{"POST", "GET", "PUT", "DELETE"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
+	  }))
+
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{"message": "Welcome to Todo API!"})
 	})
 
-	r.POST("/signup", handlers.SignUp(db))
-	r.POST("/login", handlers.Login(db))
+	r.POST("/signup", handlers.SignUp(userUsecase))
+	r.POST("/login", handlers.Login(userUsecase))
 	
 	todoRoutes := r.Group("/todos")
 	todoRoutes.Use(middleware.JWTAuthMiddleware())
