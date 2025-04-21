@@ -1,31 +1,38 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
 import "./navbar.css"   
 
 export default function Navbar() {
+  const navigate = useNavigate()
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-  // Check if user is logged in
   useEffect(() => {
-    const token = localStorage.getItem("token")
-    setIsLoggedIn(!!token)
-
-    // Listen for storage events (login/logout in other tabs)
-    window.addEventListener("storage", () => {
+    const updateLoginStatus = () => {
       const token = localStorage.getItem("token")
       setIsLoggedIn(!!token)
-    })
-
+    }
+  
+    updateLoginStatus() // check initially
+  
+    window.addEventListener("storage", updateLoginStatus)
+    window.addEventListener("login", updateLoginStatus)
+    window.addEventListener("logout", updateLoginStatus)
+  
     return () => {
-      window.removeEventListener("storage", () => {})
+      window.removeEventListener("storage", updateLoginStatus)
+      window.removeEventListener("login", updateLoginStatus)
+      window.removeEventListener("logout", updateLoginStatus)
     }
   }, [])
 
   const handleLogout = () => {
     localStorage.removeItem("token")
+    window.dispatchEvent(new Event("logout"))
     setIsLoggedIn(false)
+    navigate("/")
   }
 
   return (

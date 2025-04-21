@@ -25,6 +25,7 @@ export default function Login() {
     try {
       const res = await login(data)
       localStorage.setItem("token", res.token)
+      window.dispatchEvent(new Event("login"))
       navigate("/todos")
     } catch (err) {
       setError(err instanceof Error ? err.message : "Login failed. Please try again.")
